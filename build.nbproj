@@ -1,0 +1,10 @@
+#CSON
+
+cson:
+  $type: 'cson'
+  target: 'package.cson'
+  
+build:
+  $type: 'coffee'
+  target: 'src'
+  outdir: 'lib'

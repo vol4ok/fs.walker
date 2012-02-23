@@ -1,0 +1,14 @@
+#CSON
+author: "vol4ok <admin@vol4ok.net>"
+name: "fs.walker"
+description: "fs.walker"
+version: "0.0.1"
+main: "fs.walker.js"
+repository: 
+  url: ""
+engines: 
+  node: "~0.6.11"
+dependencies: 
+  underscore: ">=1.2.0"
+devDependencies: {}
+optionalDependencies: {}
