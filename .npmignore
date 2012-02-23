@@ -1,3 +1,4 @@
 fs.walker.coffee
 package.cson
 build.nbproj
+test
