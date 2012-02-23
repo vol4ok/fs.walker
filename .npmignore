@@ -1,4 +1,7 @@
-fs.walker.coffee
+*.coffee
+.DS_Store
+.git*
+Cakefile
 package.cson
 build.nbproj
 test

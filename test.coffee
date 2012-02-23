@@ -7,7 +7,7 @@ path        = require 'path'
 
 {basename} = path
 
-{walkSync, Walker}  = require '../fs.walker'
+{walkSync, Walker}  = require './fs.walker'
 
 count1 = 0
 count2 = 0
