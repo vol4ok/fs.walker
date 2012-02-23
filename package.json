@@ -1,15 +1,22 @@
 {
   "author": "vol4ok <admin@vol4ok.net>",
-  "name": "",
-  "description": "",
+  "name": "fs.walker",
+  "description": "fs.walker",
   "version": "0.0.1",
+  "main": "fs.walker.js",
   "repository": {
-    "url": ""
+    "url": "git://github.com/vol4ok/fs.walker.git"
   },
   "engines": {
     "node": "~0.6.11"
   },
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "underscore": ">=1.2.0"
+  },
+  "devDependencies": {
+    "colors": ">=0.5.0",
+    "coffee-script": ">=1.2.0",
+    "vows": ">=0.6.0"
+  },
   "optionalDependencies": {}
 }
