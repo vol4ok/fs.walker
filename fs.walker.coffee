@@ -12,6 +12,30 @@ MAX_INT = 9007199254740992
 * @class Walker
 ###
 
+class WalkerContext
+  constructor: (@base, @path, @subpath = '', @depth = 0) ->
+    @stat = fs.statSync(@path)
+  isDirectory: -> @stat.isDirectory()
+  makeSubContext: (file) => 
+    new WalkerContext(@base
+    , join(@path, file)
+    , join(@subpath, file)
+    , @depth+1)
+  enumDir: ->
+    fs.readdirSync(@path).map(@makeSubContext)
+  relpath: ->
+    rel = relative(@base, @path)
+    return rel if @subpath is ''
+    join(dirname(rel), @subpath)
+  dirname: -> dirname(path)
+  basename: (withExt = yes) -> 
+    if withExt
+      basename(@path)
+    else
+      basename(@path).replace(/(\.[^.\/]*)?$/i, '')
+  extname: -> extname(@path)
+      
+    
 class Walker
   
   defaults:
@@ -43,7 +67,8 @@ class Walker
     return this
     
   set: (options) ->
-    @[key] = val for key, val of options when key in @defaults
+    console.log options
+    @[key] = val for key, val of options when _.has(@defaults,key) 
     return this
   
   ###*
@@ -53,44 +78,38 @@ class Walker
   
   walk: (targets) ->
     targets = [ targets ] unless _.isArray(targets)
-    for target in targets
-      target = fs.realpathSync(target)
-      dir = ''
-      file = ''
+    for path in targets
       if @relative?
         @base = fs.realpathSync(@relative)
-        dir = dirname(relative(@base, target))
-        file = basename(target)
       else
-        @base = target
-      @_walk(file, dir)
+        stat = fs.statSync(path)
+        @base = fs.realpathSync(if stat.isDirectory() then path else dirname(path))
+      @_walk(new WalkerContext(@base, fs.realpathSync(path)))
     return this
-      
+    
   ###*
   * @private
-  * @param {String} apath — absolute path
-  * @param {String} [apath = ''] — relative path
-  * @param {Number} [depth = ''] — depth of recursion
+  * @param {Object} ctx — context
   ###
   
-  _walk: (file, dir, depth = 0) ->
-    return true if depth > @depth
-    path = join(@base, dir, file)
-    stat = fs.statSync(path)
-    if stat.isDirectory()
-      try
-        @emitter.emit('dir', file, dir, @base)
+  _walk: (ctx) ->
+    return true if ctx.depth > @depth
+    if ctx.isDirectory()
+      try @emitter.emit 'dir', ctx.path, ctx
       catch err
-        return false if err
-      for next in fs.readdirSync(path)
-        return false unless @_walk(next, join(dir, file), depth+1)
+        return false if err is 'break'
+        return true if err is 'continue'
+        throw err
+      for subctx in ctx.enumDir()
+        return false unless @_walk(subctx)
     else
-      try
-        @emitter.emit('file', file, dir, @base)
+      try @emitter.emit 'file', ctx.path, ctx
       catch err
-        return false if err
+        return false if err is 'break'
+        return true if err is 'continue'
+        throw err
     return true
-
+    
 ###*
 * @api
 * @param {Array|String} [targets] - dir or files for scan
