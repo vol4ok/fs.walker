@@ -120,15 +120,15 @@ class Walker
   Syntax 1:  
   walkSync(['/dir', '/dir2'], {
     relative: '../',
-    on_file: function(apath, rpath, stat) {...},
-    on_dir: function(apath, rpath, stat) {...}
+    on_file: function(path, context) {...},
+    on_dir: function(path, context) {...}
   });
   
   Syntax 2:
   walkSync()
     .set({relative: '../'})
-    .on('file', function(apath, rpath, stat) {...})
-    .on('dir', function(apath, rpath, stat) {...})
+    .on('file', function(path, context) {...})
+    .on('dir', function(path, context) {...})
     .walk(['/dir', '/dir2']);
 ###
 
