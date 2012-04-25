@@ -1,6 +1,7 @@
 # fs.walker
 
-Walk files and dirs, run the callback.
+Recursive walk the files and dirs inside a given directory, and invokes callbacks. 
+It is useful when processing, transforming or compiling multiple files.
 
 ## Usage
 
