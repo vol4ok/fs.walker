@@ -28,11 +28,11 @@ class WalkerContext
     return rel if @subpath is ''
     join(dirname(rel), @subpath)
   dirname: -> dirname(path)
-  basename: (withExt = yes) -> 
-    if withExt
-      basename(@path)
-    else
+  basename: (withoutExt = no) -> 
+    if withoutExt
       basename(@path).replace(/(\.[^.\/]*)?$/i, '')
+    else
+      basename(@path)
   extname: -> extname(@path)
       
     
