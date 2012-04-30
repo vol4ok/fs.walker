@@ -61,14 +61,14 @@ WalkerContext = (function() {
     return dirname(path);
   };
 
-  WalkerContext.prototype.basename = function(withoutExt) {
-    if (withoutExt == null) {
-      withoutExt = false;
+  WalkerContext.prototype.basename = function(withExt) {
+    if (withExt == null) {
+      withExt = true;
     }
-    if (withoutExt) {
-      return basename(this.path).replace(/(\.[^.\/]*)?$/i, '');
-    } else {
+    if (withExt) {
       return basename(this.path);
+    } else {
+      return basename(this.path).replace(/(\.[^.\/]*)?$/i, '');
     }
   };
 
