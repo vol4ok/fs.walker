@@ -13,20 +13,20 @@ MAX_INT = 9007199254740992
 ###
 
 class WalkerContext
-  constructor: (@base, @path, @subpath = '', @depth = 0) ->
+  constructor: (@base, @path, @_subpath = '', @depth = 0) ->
     @stat = fs.statSync(@path)
   isDirectory: -> @stat.isDirectory()
   makeSubContext: (file) => 
     new WalkerContext(@base
     , join(@path, file)
-    , join(@subpath, file)
+    , join(@_subpath, file)
     , @depth+1)
   enumDir: ->
     fs.readdirSync(@path).map(@makeSubContext)
   relpath: ->
     rel = relative(@base, @path)
-    return rel if @subpath is ''
-    join(dirname(rel), @subpath)
+    return rel if @_subpath is ''
+    join(dirname(rel), @_subpath)
   dirname: -> dirname(@path)
   basename: (withExt = yes) -> 
     if withExt
@@ -34,6 +34,7 @@ class WalkerContext
     else
       basename(@path).replace(/(\.[^.\/]*)?$/i, '')
   extname: -> extname(@path)
+  subpath: -> dirname(@_subpath)
       
     
 class Walker

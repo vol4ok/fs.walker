@@ -26,10 +26,10 @@ WalkerContext = (function() {
 
   WalkerContext.name = 'WalkerContext';
 
-  function WalkerContext(base, path, subpath, depth) {
+  function WalkerContext(base, path, _subpath, depth) {
     this.base = base;
     this.path = path;
-    this.subpath = subpath != null ? subpath : '';
+    this._subpath = _subpath != null ? _subpath : '';
     this.depth = depth != null ? depth : 0;
     this.makeSubContext = __bind(this.makeSubContext, this);
 
@@ -41,7 +41,7 @@ WalkerContext = (function() {
   };
 
   WalkerContext.prototype.makeSubContext = function(file) {
-    return new WalkerContext(this.base, join(this.path, file), join(this.subpath, file), this.depth + 1);
+    return new WalkerContext(this.base, join(this.path, file), join(this._subpath, file), this.depth + 1);
   };
 
   WalkerContext.prototype.enumDir = function() {
@@ -51,10 +51,10 @@ WalkerContext = (function() {
   WalkerContext.prototype.relpath = function() {
     var rel;
     rel = relative(this.base, this.path);
-    if (this.subpath === '') {
+    if (this._subpath === '') {
       return rel;
     }
-    return join(dirname(rel), this.subpath);
+    return join(dirname(rel), this._subpath);
   };
 
   WalkerContext.prototype.dirname = function() {
@@ -74,6 +74,10 @@ WalkerContext = (function() {
 
   WalkerContext.prototype.extname = function() {
     return extname(this.path);
+  };
+
+  WalkerContext.prototype.subpath = function() {
+    return dirname(this._subpath);
   };
 
   return WalkerContext;
