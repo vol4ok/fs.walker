@@ -2,7 +2,7 @@
 author: "vol4ok <admin@vol4ok.net>"
 name: "fs.walker"
 description: "fs.walker"
-version: "0.0.2"
+version: "0.0.3"
 main: "fs.walker.js"
 repository: 
   url: "git://github.com/vol4ok/fs.walker.git"
