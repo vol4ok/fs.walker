@@ -27,7 +27,7 @@ class WalkerContext
     rel = relative(@base, @path)
     return rel if @subpath is ''
     join(dirname(rel), @subpath)
-  dirname: -> dirname(path)
+  dirname: -> dirname(@path)
   basename: (withExt = yes) -> 
     if withExt
       basename(@path)

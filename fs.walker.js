@@ -58,7 +58,7 @@ WalkerContext = (function() {
   };
 
   WalkerContext.prototype.dirname = function() {
-    return dirname(path);
+    return dirname(this.path);
   };
 
   WalkerContext.prototype.basename = function(withExt) {
