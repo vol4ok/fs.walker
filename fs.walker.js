@@ -72,8 +72,15 @@ WalkerContext = (function() {
     }
   };
 
-  WalkerContext.prototype.extname = function() {
-    return extname(this.path);
+  WalkerContext.prototype.extname = function(withDot) {
+    if (withDot == null) {
+      withDot = true;
+    }
+    if (withDot) {
+      return extname(this.path);
+    } else {
+      return extname(this.path).slice(1);
+    }
   };
 
   WalkerContext.prototype.subpath = function() {

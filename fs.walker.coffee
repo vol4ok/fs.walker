@@ -33,7 +33,10 @@ class WalkerContext
       basename(@path)
     else
       basename(@path).replace(/(\.[^.\/]*)?$/i, '')
-  extname: -> extname(@path)
+  extname: (withDot = yes) -> 
+    return if withDot 
+    then extname(@path) 
+    else extname(@path).slice(1)
   subpath: -> dirname(@_subpath)
       
     
