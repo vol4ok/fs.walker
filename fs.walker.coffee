@@ -68,7 +68,6 @@ class Walker
     return this
     
   set: (options) ->
-    console.log options
     @[key] = val for key, val of options when _.has(@defaults,key) 
     return this
   

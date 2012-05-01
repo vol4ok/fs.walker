@@ -131,7 +131,6 @@ Walker = (function() {
 
   Walker.prototype.set = function(options) {
     var key, val;
-    console.log(options);
     for (key in options) {
       val = options[key];
       if (_.has(this.defaults, key)) {
