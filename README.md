@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/vol4ok/fs.walker.png)](http://travis-ci.org/vol4ok/fs.walker)
 # fs.walker
 
 Recursive walk the files and dirs inside a given directory, and invokes callbacks. 
