@@ -49,7 +49,6 @@ WalkerContext = (function() {
   WalkerContext.prototype.relpath = function() {
     var rel;
     rel = relative(this.base, this.path);
-    console.log("-- > ", rel, this._subpath);
     if (this._subpath === '') {
       return rel;
     }

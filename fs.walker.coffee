@@ -25,7 +25,6 @@ class WalkerContext
     fs.readdirSync(@path).map(@makeSubContext)
   relpath: ->
     rel = relative(@base, @path)
-    console.log "-- > ", rel, @_subpath
     return rel if @_subpath is ''
     return @_subpath
   dirname: -> dirname(@path)
